@@ -8,23 +8,28 @@
 	<link rel="stylesheet" type="text/css" href="/css/site.css">
 </head>
 <body>
-	<!--...................................................................................-->
+	<!--...................................HTML.............................................-->
 
 
 	<div id="todo">
 		<!--COMPONENTS WILL BE MOUNTED HERE-->
 	</div>
-	<!--...................................................................................-->
-	<script type="text/jsx">
 
-		var TodoBanner = React.createClass({
-			render: function(){
-				return (
-					<h3>TaskList</h3>
-					);
-			}
-		});
+	<!--...................................................................................-->
+
+
+	<script type="text/jsx">
+	//THE BANNER.
+
+	var TodoBanner = React.createClass({
+		render: function(){
+			return (
+				<h3>TaskList</h3>
+				);
+		}
+	});
 //------------------------------------------------------------------//
+//THIS COMPONENT ACCEPTS A LIST OF ITEMS AND WRAPS EACH ITEM AROUND 'TODOLISTITEM' COMPONENT.
 var TodoList = React.createClass({
 	render: function() {
 		var createItem = function(itemText) {
@@ -36,6 +41,7 @@ var TodoList = React.createClass({
 	}
 }); 
 //------------------------------------------------------------------//
+//THIS COMPONENT RENDERS THE LIST AS A LIST BLOCK IN THE FINAL HTML.
 var TodoListItem = React.createClass({
 	render: function(){
 		return (
@@ -44,6 +50,7 @@ var TodoListItem = React.createClass({
 	}
 });
 //------------------------------------------------------------------//
+//THIS COMPONENT CONTAINS THE TEXT FIELD AND BUTTON, AS WELL AS THE EVENT HANDLERS FOR SUBMIT.
 var TodoForm = React.createClass({
 	getInitialState: function() {
 		return {item: ''};
@@ -70,6 +77,7 @@ var TodoForm = React.createClass({
 	}
 });		
 //------------------------------------------------------------------//
+//THIS COMPONENT CONCATENATES ALL THE NEW LIST ITEMS AND RENDERS THE UPDATED ITEMS TO THE VIEW.
 var TodoApp = React.createClass({
 	getInitialState: function() {
 		return {items: []};
