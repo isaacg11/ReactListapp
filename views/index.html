@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My App</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap_theme.css">
+	<link rel="stylesheet" type="text/css" href="/css/site.css">
+</head>
+<body>
+	<!--...................................................................................-->
+
+
+	<div id="todo">
+		<!--COMPONENTS WILL BE MOUNTED HERE-->
+	</div>
+	<!--...................................................................................-->
+	<script type="text/jsx">
+
+		var TodoBanner = React.createClass({
+			render: function(){
+				return (
+					<h3>TaskList</h3>
+					);
+			}
+		});
+//------------------------------------------------------------------//
+var TodoList = React.createClass({
+	render: function() {
+		var createItem = function(itemText) {
+			return (
+				<TodoListItem>{itemText}</TodoListItem>
+				);
+		};
+		return <ul>{this.props.items.map(createItem)}</ul>;
+	}
+});
+//------------------------------------------------------------------//
+var TodoListItem = React.createClass({
+	render: function(){
+		return (
+			<li>{this.props.children}</li>
+			);
+	}
+});
+//------------------------------------------------------------------//
+var TodoForm = React.createClass({
+	getInitialState: function() {
+		return {item: ''};
+	},
+	handleSubmit: function(e){
+		e.preventDefault();
+		this.props.onFormSubmit(this.state.item);
+		this.setState({item: ''});
+		React.findDOMNode(this.refs.item).focus();
+		return;
+	},
+	onChange: function(e){
+		this.setState({
+			item: e.target.value
+		});
+	},
+	render: function(){
+		return (
+			<form onSubmit={this.handleSubmit}>
+				<input type='text' ref='item' onChange={this.onChange} value={this.state.item}/>
+				<input type='submit' value='Add'/>
+			</form>
+			);
+	}
+});		
+//------------------------------------------------------------------//
+var TodoApp = React.createClass({
+	getInitialState: function() {
+		return {items: []};
+	},
+	updateItems: function(newItem) {
+		var allItems = this.state.items.concat([newItem]);
+		this.setState({
+			items: allItems
+		});
+	},
+	render: function() {
+		return (
+			<div>
+				<TodoBanner/>
+				<TodoList items={this.state.items}/>
+				<TodoForm onFormSubmit={this.updateItems}/>
+			</div>
+			);
+	}
+});
+
+React.render(<TodoApp/>, document.getElementById('todo'));
+</script>
+<!--...................................................................................-->
+<script src="/react/react.js"></script>
+<script src="/react/JSXTransformer.js"></script>
+<script type="text/jsx" src="/javascript/main.js"></script>
+</body>
+</html>
